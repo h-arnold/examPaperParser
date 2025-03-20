@@ -1,18 +1,101 @@
 allow_embedding: false
+db_schema:
+  exampapers:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: paperId
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: qualId
+      target: qualifications
+      type: link_single
+    - admin_ui: {order: 2, width: 200}
+      name: datePublished
+      type: date
+    server: full
+    title: examPapers
+  files:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: path
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: file
+      type: media
+    - admin_ui: {order: 2, width: 200}
+      name: file_version
+      type: string
+    server: full
+    title: Files
+  qualifications:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: qualId
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: qualType
+      target: qualtypes
+      type: link_single
+    - admin_ui: {order: 2, width: 200}
+      name: Subject
+      type: string
+    server: full
+    title: qualifications
+  qualtypes:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: qualType
+      type: string
+    server: full
+    title: qualTypes
+  questions:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: questionId
+      type: string
+    server: full
+    title: questions
+  specification:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: specId
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: SpecNumber
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: SpecDetails
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: qualId
+      target: qualifications
+      type: link_single
+    server: full
+    title: specification
 dependencies:
 - config: {}
   dep_id: dep_lin1x4oec0ytd
   resolution_hints: {app_id: 4UK6WHQ6UX7AKELK, name: Material 3 Theme, package_name: m3}
   version: {version_tag: v1.2.2}
-name: M3 App 2
+name: Exam Paper Parser
 native_deps: null
-package_name: M3_App_2
+package_name: Exam_Paper_Parser
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
   server_version: python3-full
   version: 3
 services:
-- client_config: {}
+- client_config: {enable_v2: false}
   server_config: {}
   source: /runtime/services/tables.yml
+- client_config: {}
+  server_config: {file_table: files}
+  source: /runtime/services/anvil/files.yml
+startup_form: Form1
