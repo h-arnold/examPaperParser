@@ -28,14 +28,18 @@ class MistralOcrClient:
         Returns:
             str: The signed URL for the uploaded PDF.
         """
+        print(f"Attempting to upload {filename}")
         if filename is None:
             filename = "document.pdf"
         
         # Retrieve the bytes from the media object.
         if hasattr(file_media, "get_bytes"):
             file_bytes = file_media.get_bytes()
+            print(f"{filename} is {file_bytes / 1000} KB in size.")
         else:
             file_bytes = file_media
+
+        print("We potentially have some file bytes!")
 
         # Create a file-like object from the bytes.
         file_obj = io.BytesIO(file_bytes)
@@ -80,4 +84,6 @@ class MistralOcrClient:
         mistralApiKey = anvil.secrets.get_secret('mistralApiKey')
         if not mistralApiKey:
             raise Exception("No Mistral API Key provided. Please add one to your Anvil secrets and set the key as 'mistralApiKey'")
+
+        print("Retrieved Mistral API Key")
         return mistralApiKey
