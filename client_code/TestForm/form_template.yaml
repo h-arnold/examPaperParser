@@ -1,5 +1,6 @@
 components_by_slot:
-  content:
+  content: []
+  sidesheet:
   - event_bindings: {click: testOcrProcessingButton_click}
     layout_properties: {}
     name: testOcrProcessingButton

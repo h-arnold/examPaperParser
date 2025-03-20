@@ -16,7 +16,7 @@ def main():
     """
     # Define the source and destination folders (update these paths as necessary).
     source_folder = "./"
-    destination_folder = "./processedDocs"
+    destination_folder = "processedDocs"
     
   
     # Initialise the Mistal OCR client using the MistalAI Python library.
