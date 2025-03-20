@@ -91,6 +91,10 @@ runtime_options:
   server_spec: {base: python310-minimal}
   server_version: python3-full
   version: 3
+secrets:
+  mistralApiKey:
+    type: secret
+    value: {QBYJBTQL3KF24SMT: qYkBqh0hZGwCzeeC83PPLpn8Guge5zPpBmPV66Jt/L3qfSBM7IIAW9x4vZSnCgFCxg0SA1Z13H8f8zyTdI4ROdYhCGOpH+br+oje07rJgRUeNRX64ZIQK7nJvmqqtXyy5X3v7YCWxoIwNZOXb/CLffmulM/Ca2QY3k1thD0K7A==}
 services:
 - client_config: {enable_v2: false}
   server_config: {}
@@ -98,4 +102,8 @@ services:
 - client_config: {}
   server_config: {file_table: files}
   source: /runtime/services/anvil/files.yml
-startup_form: Form1
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/anvil/secrets.yml
+startup: {module: TestForm, type: form}
+startup_form: null

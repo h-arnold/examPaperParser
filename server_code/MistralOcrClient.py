@@ -1,3 +1,4 @@
+import anvil.secrets
 import anvil.files
 from anvil.files import data_files
 import anvil.tables as tables
@@ -5,13 +6,14 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
+
 from mistralai import Mistral
 
 class MistralOcrClient:
     """
     A client for interacting with the Mistal OCR API using the MistalAI Python library.
     """
-    def __init__(self, api_key: str, model: str = "mistral-ocr-latest"):
+    def __init__(self, model: str = "mistral-ocr-latest"):
         """
         Initialise the OCR client.
 
@@ -19,7 +21,8 @@ class MistralOcrClient:
             api_key (str): The Mistal API key.
             model (str): The OCR model to use. Default is 'mistral-ocr-latest'.
         """
-        self.client = Mistral(api_key=api_key)
+        self.apikey = self.getMistralApiKey()
+        self.client = Mistral(api_key=self.apikey)
         self.model = model
 
     def upload_pdf(self, file_path: str) -> str:
@@ -65,6 +68,16 @@ class MistralOcrClient:
             },
             include_image_base64=include_image_base64
         )
+
+    def getMistralApiKey(self) -> str:
+    # Gets the Mistral API Key from Anvil Secrets
+      mistralApiKey = anvil.secrets.get_secret('mistralApiKey')
+
+      if not mistralApiKey:
+        raise Exception("No Mistral API Key Provided. Please add one to your Anvil secrets and set the key as 'mistralApiKey'")
+
+      return mistralApiKey
+    
 
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.

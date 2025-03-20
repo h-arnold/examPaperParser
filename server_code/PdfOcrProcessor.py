@@ -1,3 +1,4 @@
+import anvil.secrets
 import anvil.files
 from anvil.files import data_files
 import anvil.tables as tables
@@ -6,6 +7,7 @@ from anvil.tables import app_tables
 import anvil.server
 
 import os
+from pathlib import Path
 import json
 import logging
 from MistralOcrClient import MistralOcrClient
@@ -14,7 +16,7 @@ class PdfOcrProcessor:
     """
     Processes PDF files from a source directory using the MistralOCRClient.
     """
-    def __init__(self, source_folder: str, destination_folder: str, ocr_client: MistralOCRClient):
+    def __init__(self, source_folder: str, destination_folder: str, ocr_client: MistralOcrClient):
         """
         Initialise the PDF processor.
 
