@@ -8,7 +8,7 @@ import anvil.server
 import os
 import anvil.media
 
-Class FileManager:
+class FileManager:
 
   def __init__(self):
 
@@ -23,5 +23,7 @@ Class FileManager:
       
       return directoryFiles
 
-    def writeFile(filename):
-      row = app_tables.Files.add_row()
+    def writeFile(file,filename, path):
+      app_tables.Files.add_row(path=f"{path}/[filename]",
+                                    file=file
+                                    )

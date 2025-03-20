@@ -6,6 +6,11 @@ components_by_slot:
     name: testListFiles
     properties: {text: Test List Files, visible: true}
     type: form:dep_lin1x4oec0ytd:_Components.Button
+  - event_bindings: {click: testFileManager_click}
+    layout_properties: {}
+    name: testFileManager
+    properties: {text: Test File Manager}
+    type: form:dep_lin1x4oec0ytd:_Components.Button
   - event_bindings: {click: testOcrProcessingButton_click}
     layout_properties: {}
     name: testOcrProcessingButton

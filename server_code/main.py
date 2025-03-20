@@ -10,6 +10,19 @@ from MistralOcrClient import MistralOcrClient
 from PdfOcrProcessor import PdfOcrProcessor
 
 @anvil.server.callable
+def testWriteFile():
+  import FileManager
+  fileManager = FileManager()
+
+  files = fileManager.getFilesInADirectory("pdfsToProcess")
+  print(files)
+
+  fileManager.writeFile(files[0], "test.pdf", "pdfsToProcess")
+
+  updatedFileList = files.fileManager.getFilesInADirectory("pdfsToProcess")
+  print(updatedFileList)
+
+@anvil.server.callable
 def list_files_in_directory():
   import os
   # Get the path of my Data Files directory
@@ -37,6 +50,8 @@ def main():
     # Initialise and run the PDF OCR processor.
     processor = PdfOcrProcessor(source_folder, destination_folder, ocr_client)
     processor.process_pdfs()
+
+
 
 
 

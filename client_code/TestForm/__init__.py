@@ -20,3 +20,7 @@ class TestForm(TestFormTemplate):
   def testListFiles_click(self, **event_args):
     """This method is called when the component is clicked."""
     anvil.server.call('list_files_in_directory')
+
+  def testFileManager_click(self, **event_args):
+    """This method is called when the component is clicked."""
+  anvil.server.call('testWriteFile')
