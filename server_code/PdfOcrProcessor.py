@@ -77,11 +77,3 @@ class PdfOcrProcessor:
           pdfFiles.push(file)
 
 
-    def list_files_in_directory():
-      # Get the path of my Data Files directory
-      my_directory_path = data_files['my_directory']
-
-    with os.scandir(my_directory_path) as directory:
-        for file in directory:
-            if not file.name.startswith('.') and file.is_file():
-                print(file.name)

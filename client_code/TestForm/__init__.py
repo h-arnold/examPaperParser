@@ -16,3 +16,7 @@ class TestForm(TestFormTemplate):
   def testOcrProcessingButton_click(self, **event_args):
     """This method is called when the component is clicked."""
     anvil.server.call('main')
+
+  def testListFiles_click(self, **event_args):
+    """This method is called when the component is clicked."""
+    anvil.server.call('list_files_in_directory')
