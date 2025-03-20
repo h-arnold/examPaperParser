@@ -24,8 +24,4 @@ Class FileManager:
       return directoryFiles
 
     def writeFile(filename):
-      anvil.media.
-
-
-    with open(path, "w+") as f:
-      f.write(text)
+      row = app_tables.Files.add_row()
