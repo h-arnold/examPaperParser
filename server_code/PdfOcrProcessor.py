@@ -71,7 +71,7 @@ class PdfOcrProcessor:
 
     def checkForPdfsInFolder(self):
       pdfFiles = []
-      files = os.listdir(f"./{self.source_folder}")
+      files = os.listdir(f"{self.source_folder}")
       for file in files:
         if file.contains(".pdf"):
           pdfFiles.push(file)
