@@ -11,7 +11,7 @@ from PdfOcrProcessor import PdfOcrProcessor
 
 @anvil.server.callable
 def testWriteFile():
-  import FileManager
+  from FileManager import FileManager
   fileManager = FileManager()
 
   files = fileManager.getFilesInADirectory("pdfsToProcess")
@@ -19,7 +19,7 @@ def testWriteFile():
 
   fileManager.writeFile(files[0], "test.pdf", "pdfsToProcess")
 
-  updatedFileList = files.fileManager.getFilesInADirectory("pdfsToProcess")
+  updatedFileList = fileManager.getFilesInADirectory("pdfsToProcess")
   print(updatedFileList)
 
 @anvil.server.callable
