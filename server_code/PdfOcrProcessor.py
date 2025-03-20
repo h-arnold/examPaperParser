@@ -8,7 +8,7 @@ import anvil.server
 import os
 import json
 import logging
-from MistralOCRClient import MistralOCRClient
+from MistralOcrClient import MistralOcrClient
 
 class PdfOcrProcessor:
     """
