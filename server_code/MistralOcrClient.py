@@ -1,49 +1,53 @@
+import io
 import anvil.secrets
-import anvil.files
-from anvil.files import data_files
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
-import anvil.server
-
-
 from mistralai import Mistral
 
 class MistralOcrClient:
     """
-    A client for interacting with the Mistal OCR API using the MistalAI Python library.
+    A client for interacting with the Mistral OCR API using the MistralAI Python library.
     """
     def __init__(self, model: str = "mistral-ocr-latest"):
         """
         Initialise the OCR client.
 
         Args:
-            api_key (str): The Mistal API key.
             model (str): The OCR model to use. Default is 'mistral-ocr-latest'.
         """
         self.apikey = self.getMistralApiKey()
         self.client = Mistral(api_key=self.apikey)
         self.model = model
 
-    def upload_pdf(self, file_path: str) -> str:
+    def upload_pdf(self, file_media, filename: str = None) -> str:
         """
-        Upload a PDF file to the Mistal API for OCR processing.
+        Upload a PDF file (as an Anvil Media object) to the Mistral API for OCR processing.
 
         Args:
-            file_path (str): Path to the PDF file.
+            file_media: An Anvil Media object representing the PDF file.
+            filename (str): The name of the file. If None, a default name is used.
 
         Returns:
             str: The signed URL for the uploaded PDF.
         """
-        with open(file_path, "rb") as file:
-            response = self.client.files.upload(
-                file={
-                    "file_name": Path(file_path).name,
-                    "content": file,
-                },
-                purpose="ocr"
-            )
-        # Assume response is a dictionary with a 'url' key or an object with an attribute 'url'
+        if filename is None:
+            filename = "document.pdf"
+        
+        # Retrieve the bytes from the media object.
+        if hasattr(file_media, "get_bytes"):
+            file_bytes = file_media.get_bytes()
+        else:
+            file_bytes = file_media
+
+        # Create a file-like object from the bytes.
+        file_obj = io.BytesIO(file_bytes)
+
+        response = self.client.files.upload(
+            file={
+                "file_name": filename,
+                "content": file_obj,
+            },
+            purpose="ocr"
+        )
+        
         signed_url = response.get("url") if isinstance(response, dict) else getattr(response, "url", None)
         if not signed_url:
             raise ValueError("Upload did not return a signed URL.")
@@ -70,24 +74,10 @@ class MistralOcrClient:
         )
 
     def getMistralApiKey(self) -> str:
-    # Gets the Mistral API Key from Anvil Secrets
-      mistralApiKey = anvil.secrets.get_secret('mistralApiKey')
-
-      if not mistralApiKey:
-        raise Exception("No Mistral API Key Provided. Please add one to your Anvil secrets and set the key as 'mistralApiKey'")
-
-      return mistralApiKey
-    
-
-# This is a server module. It runs on the Anvil server,
-# rather than in the user's browser.
-#
-# To allow anvil.server.call() to call functions here, we mark
-# them with @anvil.server.callable.
-# Here is an example - you can replace it with your own:
-#
-# @anvil.server.callable
-# def say_hello(name):
-#   print("Hello, " + name + "!")
-#   return 42
-#
+        """
+        Retrieves the Mistral API Key from Anvil Secrets.
+        """
+        mistralApiKey = anvil.secrets.get_secret('mistralApiKey')
+        if not mistralApiKey:
+            raise Exception("No Mistral API Key provided. Please add one to your Anvil secrets and set the key as 'mistralApiKey'")
+        return mistralApiKey
