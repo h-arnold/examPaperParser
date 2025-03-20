@@ -10,20 +10,22 @@ import anvil.media
 
 class FileManager:
 
-  def __init__(self):
+	def __init__(self):
+		self.data = []
 
-    def getFilesInADirectory(directoryPath):
-      directory = data_files[directoryPath]
-      directoryFiles = []
-      
-      with os.scandir(directory) as directory:
-        for file in directory:
-            if not file.name.startswith('.') and file.is_file():
-              directoryFiles.push(file)
-      
-      return directoryFiles
 
-    def writeFile(file,filename, path):
-      app_tables.Files.add_row(path=f"{path}/[filename]",
-                                    file=file
-                                    )
+	def getFilesInADirectory(directoryPath):
+		directory = data_files[directoryPath]
+		directoryFiles = []
+			
+		with os.scandir(directory) as directory:
+			for file in directory:
+					if not file.name.startswith('.') and file.is_file():
+						directoryFiles.push(file)
+			
+		return directoryFiles
+
+	def writeFile(file,filename, path):
+		app_tables.Files.add_row(path=f"{path}/[filename]",
+																	file=file
+																	)
