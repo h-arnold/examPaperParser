@@ -5,8 +5,8 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
-from mistral_ocr_client import MistralOCRClient
-from pdf_ocr_processor import PDFOCRProcessor
+from MistralOcrClient import MistralOcrClient
+from PdfOcrProcessor import PDFOcrProcessor
 
 def main():
     """
@@ -22,7 +22,7 @@ def main():
         raise EnvironmentError("MISTRAL_API_KEY environment variable not set.")
     
     # Initialise the Mistal OCR client using the MistalAI Python library.
-    ocr_client = MistralOCRClient(api_key=api_key)
+    ocr_client = MistralOcrClient(api_key=api_key)
     
     # Initialise and run the PDF OCR processor.
     processor = PDFOCRProcessor(source_folder, destination_folder, ocr_client)

@@ -6,6 +6,6 @@ unique_ids:
   modules: {}
   scripts: {}
   server_modules:
-    MistralOCRClient: '1742468392545555526965541.9058'
+    MistralOcrClient: '1742468392545555526965541.9058'
     PdfOcrProcessor: '1742469919098175059808011.2067'
     main: '1742469977562292657202929.8253'

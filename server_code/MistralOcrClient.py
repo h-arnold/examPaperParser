@@ -7,7 +7,7 @@ import anvil.server
 
 from mistralai import Mistral
 
-class MistralOCRClient:
+class MistralOcrClient:
     """
     A client for interacting with the Mistal OCR API using the MistalAI Python library.
     """
