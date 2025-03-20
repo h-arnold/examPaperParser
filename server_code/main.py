@@ -15,7 +15,7 @@ def main():
     Main function to run the PDF OCR processing.
     """
     # Define the source and destination folders (update these paths as necessary).
-    source_folder = "."
+    source_folder = "pdfsToProcess"
     destination_folder = "processedDocs"
     
   

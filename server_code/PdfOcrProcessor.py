@@ -37,8 +37,8 @@ class PdfOcrProcessor:
         Iterate through PDF files in the source folder, upload them, process them via OCR,
         and save the results as JSON files in the destination folder.
         """
-        pdf_files = os.scandir("./") 
-        list(self.source_folder.glob("*.pdf"))
+        pdf_files = os.listdir(self.source_folder) 
+        
         if not pdf_files:
           print("No PDF files found in the source folder.")
           return
@@ -68,3 +68,11 @@ class PdfOcrProcessor:
       else:
         os.mkdir(f"./${self.destination_folder}")
         print("Created destination folder.")
+
+    def checkForPdfsInFolder(self):
+      pdfFiles = []
+      files = os.listdir(f"./{self.source_folder}")
+      for file in files:
+        if file.contains(".pdf"):
+          pdfFiles.push(file)
+        
