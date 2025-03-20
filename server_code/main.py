@@ -9,30 +9,26 @@ import anvil.server
 from MistralOcrClient import MistralOcrClient
 from PdfOcrProcessor import PdfOcrProcessor
 
-@anvil.server.callable
+@anvil.server.background_task
 def testWriteFile():
   from FileManager import FileManager
   fileManager = FileManager()
 
-  files = fileManager.getFilesInADirectory("pdfsToProcess")
+  files = fileManager.listDbFiles("pdfsToProcess")
   print(files)
 
-  fileManager.writeFile(files[0], "test.pdf", "pdfsToProcess")
+ # fileManager.writeFile(files[0].file, "test.pdf", "pdfsToProcess")
 
-  updatedFileList = fileManager.getFilesInADirectory("pdfsToProcess")
-  print(updatedFileList)
+  #updatedFileList = fileManager.listDbFiles("pdfsToProcess")
+  #print(updatedFileList)
 
 @anvil.server.callable
 def list_files_in_directory():
-  import os
-  # Get the path of my Data Files directory
-  my_directory_path = data_files['pdfsToProcess']
-
-  with os.scandir(my_directory_path) as directory:
-    for file in directory:
-      if not file.name.startswith('.') and file.is_file():
-        print(file.name)
-
+  from FileManager import FileManager
+  fileManager = FileManager()
+  files = fileManager.listDbFiles("pdfsToProcess")
+  print(files)
+  
 @anvil.server.callable
 def main():
   
